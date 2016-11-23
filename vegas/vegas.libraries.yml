@@ -1,0 +1,8 @@
+vegas:
+  version: VERSION
+  js:
+    /libraries/vegas/dist/vegas.min.js: {}
+    js/vegas.js: {}
+  css:
+    theme:
+      /libraries/vegas/vegas.min.css: {}

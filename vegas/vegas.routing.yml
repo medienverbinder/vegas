@@ -1,0 +1,8 @@
+# Main page for Vegas configuration.
+vegas.configure:
+  path: '/admin/vegas'
+  defaults:
+    _controller: '\Drupal\vegas\Controller\VegasConfigurationController::configure'
+    _title: 'Vegas Configuration'
+  requirements:
+    _permission: 'access vegas configure'

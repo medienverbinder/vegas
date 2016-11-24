@@ -1,5 +1,5 @@
 # vegas (Drupal 8)
-quick &amp; dirty port of the Drupal7 module "Vegas"
+quick ~~&amp; dirty~~ port of the Drupal7 module "Vegas"
 
 Original module and description taken from: [https://www.drupal.org/project/vegas](https://www.drupal.org/project/vegas)
 
@@ -10,3 +10,8 @@ Installation
     Download and extract "dist" folder to libraries/vegas
     Configure at /admin/vegas
 
+New features (different from Drupal 7 module)
+---------------------------------------------
+- now it is possible to define paths for displaying the background images
+
+<img width="1250" alt="vegas_path_configuration" src="https://cloud.githubusercontent.com/assets/4519686/20599887/f470b432-b250-11e6-8f20-1478cb52c2b2.png">

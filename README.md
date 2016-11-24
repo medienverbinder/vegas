@@ -7,8 +7,10 @@ Original module and description taken from: [https://www.drupal.org/project/vega
 
 Installation
 
-    Download and extract "dist" folder to libraries/vegas
-    Configure at /admin/vegas
+- download/enable this Drupal8 version of Vegas module 
+- download Vegas jQuery/Zepto Plugin from: [https://github.com/jaysalvat/vegas](http://vegas.jaysalvat.com/)
+- extract "dist" folder to libraries/vegas
+- configure at */admin/config/media/vegas* and define paths and images for displaying the background images 
 
 New features (different from Drupal 7 module)
 ---------------------------------------------

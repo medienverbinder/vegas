@@ -9,7 +9,8 @@ Installation
 
 - download/enable this Drupal8 version of Vegas module 
 - download Vegas jQuery/Zepto Plugin from: [https://github.com/jaysalvat/vegas](http://vegas.jaysalvat.com/)
-- extract "dist" folder to libraries/vegas
+- use drush command "drush vegas" to download/install vegas 2.4.0 from github repository
+- Vegas path for the js and css files: /libraries/vegas/dist/ 
 - configure at */admin/config/media/vegas* and define paths and images for displaying the background images 
 
 New features (different from Drupal 7 module)

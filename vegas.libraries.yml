@@ -5,4 +5,4 @@ vegas:
     js/vegas.js: {}
   css:
     theme:
-      /libraries/vegas/vegas.min.css: {}
+      /libraries/vegas/dist/vegas.min.css: {}

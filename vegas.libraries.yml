@@ -6,3 +6,8 @@ vegas:
   css:
     theme:
       /libraries/vegas/dist/vegas.min.css: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery
+    - core/jquery.once

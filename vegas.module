@@ -78,10 +78,10 @@ function vegas_page_attachments_alter(array &$attachments) {
 
         if ($image) {
           $settings['overlay'] = file_create_url($image->getFileUri());
-            // Unconditionally attach an asset to the page.
         }
       }
 
+      // Unconditionally attach an asset to the page.
       $attachments['#attached']['library'][] = 'vegas/vegas';
       $attachments['#attached']['drupalSettings']['vegas']['settings'] = $settings;
 

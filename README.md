@@ -1,5 +1,5 @@
 # vegas (Drupal 8)
-quick ~~&amp; dirty~~ port of the Drupal7 module "Vegas"
+quick port of the Drupal7 module "Vegas"
 
 Original module and description taken from: [https://www.drupal.org/project/vegas](https://www.drupal.org/project/vegas)
 

@@ -2,20 +2,9 @@
 
 namespace Drupal\vegas\Form;
 
-use Drupal\Core\Database\Database;
-use Drupal\Core\Extension\ModuleHandlerInterface;
-use Drupal\Core\File\FileSystemInterface;
-use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\ConfigFormBase;
-use Drupal\Core\State\StateInterface;
-use Drupal\Core\StreamWrapper\StreamWrapperManagerInterface;
-use Drupal\Core\Url;
 use Drupal\file\Entity\File;
-use Drupal\file\FileInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
-
 
 class FormVegasConfiguration extends ConfigFormBase {
 
@@ -67,7 +56,6 @@ class FormVegasConfiguration extends ConfigFormBase {
     // Images
     $count = 10;
     for ($i = 0; $i < $count; $i++) {
-      //$image = variable_get('vegas_images', '');
       $image = array();
       $form['images']['vegas_images_' . $i] = array(
         '#type' => 'managed_file',
@@ -171,45 +159,61 @@ class FormVegasConfiguration extends ConfigFormBase {
 
   public function submitForm(array &$form, FormStateInterface $form_state) {
 
+    parent::submitForm($form, $form_state);
+
     $config = \Drupal::service('config.factory')->getEditable('vegas.settings');
+
     $config->set('vegas_fade', $form_state->getValue('vegas_fade'));
     $config->set('vegas_delay', $form_state->getValue('vegas_delay'));
     $config->set('vegas_shuffle', $form_state->getValue('vegas_shuffle'));
     $config->set('vegas_patterns', $form_state->getValue('vegas_patterns'));
     //$config->set('skip_admin_paths', $form_state->getValue('skip_admin_paths'));
 
-    drupal_set_message(t($config->get('message.vegas_config_saved')));
+    //overlay
+    $overlay = $form_state->getValue('vegas_overlay');
+    if (!empty($overlay)) {
+      $this->saveImage($overlay);
+      $config->set('vegas_overlay', $overlay);
+    }
 
-    //single items
+    //single background images
     $count = 10;
     for ($i = 0; $i < $count; $i++) {
-      // Load the file via file.fid.
+
       $image = $form_state->getValue('vegas_images_' . $i);
-      $uri = !empty($image['destination']) ? $image['destination'] : NULL;
-      $file_object = file_save_data($image, $uri, FILE_EXISTS_REPLACE);
 
-      if (!empty($file_object)) {
-        $config->set('vegas_images_' . $i, $form_state->getValue('vegas_images_' . $i));
+      if (!empty($image)) {
+        $this->saveImage($image);
+        $config->set('vegas_images_' . $i, $image);
       }
-      else {
-        drupal_set_message(t('Failed to save the managed file'), 'error');
-      }
-    }
-
-    //overlay
-    $image = $form_state->getValue('vegas_overlay');
-    $uri = !empty($image['destination']) ? $image['destination'] : NULL;
-    $file_object = file_save_data($image, $uri, FILE_EXISTS_REPLACE);
-
-    if (!empty($file_object)) {
-      $config->set('vegas_overlay', $form_state->getValue('vegas_overlay'));
-    }
-    else {
-      drupal_set_message(t('Failed to save the managed file'), 'error');
     }
 
     $config->save();
-    parent::buildForm($form, $form_state);
 
+  }
+
+  public function saveImage($fid) {
+
+    // call file usage service and load file
+    $file_usage = \Drupal::service('file.usage');
+    $file = File::load( $fid );
+
+    if ($file) {
+
+      // set file status permanent
+      if(!$file->isPermanent()){
+        $file->setPermanent();
+      }
+
+      // check file usage , if it's empty, add new entry
+      $usage = $file_usage->listUsage($file);
+
+      if(empty($usage)){
+        // let's assume it's image
+        $file_usage->add($file,'vegas','image',$fid);
+      }
+
+      $file->save();
+    }
   }
 }

@@ -172,7 +172,7 @@ class FormVegasConfiguration extends ConfigFormBase {
     //overlay
     $overlay = $form_state->getValue('vegas_overlay');
     if (!empty($overlay)) {
-      $this->saveImage($overlay);
+      $this->saveImage($overlay[0]);
       $config->set('vegas_overlay', $overlay);
     }
 
@@ -183,7 +183,7 @@ class FormVegasConfiguration extends ConfigFormBase {
       $image = $form_state->getValue('vegas_images_' . $i);
 
       if (!empty($image)) {
-        $this->saveImage($image);
+        $this->saveImage($image[0]);
         $config->set('vegas_images_' . $i, $image);
       }
     }

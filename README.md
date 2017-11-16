@@ -1,3 +1,6 @@
+### DEPRECATED: Drupal8 Vegas module moved back to drupal.org.
+#### Use the official repository. https://www.drupal.org/project/vegas
+
 # vegas (Drupal 8)
 quick port of the Drupal7 module "Vegas"
 
